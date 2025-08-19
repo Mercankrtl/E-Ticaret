@@ -28,16 +28,17 @@ out/
 
 # NetBeans
 /nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
 # VS Code
 .vscode/
 
-# Node.js / Backend
+# Node.js / Backend & Frontend
 /backend/node_modules/
+/frontend/node_modules/
 
 # OS Files
 .DS_Store
