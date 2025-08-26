@@ -1,38 +1,181 @@
-.App {
-  text-align: center;
+/* ---------------- Genel Reset ---------------- */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ---------------- Container ---------------- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ---------------- Header ---------------- */
+.header {
+  background-color: #fdfdf7;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo img {
+  height: 60px;
+  display: block;
+}
+
+/* Arama Çubuğu */
+.search-bar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  width: 60%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+}
+
+.search-bar button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #051960;
+  color: white;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-bar button:hover {
+  background-color: #104385;
+}
+
+/* Sağ kısım */
+.header-right {
+  display: flex;
+  gap: 15px;
+}
+
+.header-right button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.header-right button:hover {
+  background: #eee;
+}
+
+/* ---------------- Kategori Bar ---------------- */
+.category-bar {
+  background-color: #051960;
+  padding: 10px 0;
+}
+
+.category-bar .container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.category-bar a {
+  text-decoration: none;
+  display: inline-block;
+  background-color: #1f3279;
+  border: 1px solid transparent;
+  color: white;
+  font-size: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.2s, border 0.2s;
+  white-space: nowrap;
+}
+
+.category-bar a:hover {
+  background-color: #0035b0;
+  border: 1px solid rgba(255,255,255,0.44);
+}
+
+/* ---------------- Ürün Grid ---------------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ---------------- ProductCard ---------------- */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 220px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.product-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.product-card p {
+  margin: 2px 0;
+}
+
+.product-card button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #051960;
   color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.App-link {
-  color: #61dafb;
+.product-card button:hover {
+  background-color: #104385;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* ---------------- Footer ---------------- */
+footer {
+  background-color: #fdfdf7;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-top: 40px;
 }

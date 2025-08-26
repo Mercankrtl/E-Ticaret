@@ -1,0 +1,112 @@
+.daily-deals {
+  padding: 40px 0;
+  background-color: #f9f9f9;
+}
+
+.daily-deals h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Tek satır ve yatay kaydırma */
+.deals-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto; /* yatay kaydırma */
+  padding-bottom: 10px;
+  scrollbar-width: thin; /* Firefox için */
+}
+
+.deals-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.deals-grid::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
+/* Her ürün kutusu */
+.deal-item {
+  background: #fff;
+  border-radius: 8px;
+  width: 180px;
+  flex: 0 0 auto; /* sabit genişlik, flex-grow yok */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.deal-item .thumb {
+  position: relative;
+  width: 100%;
+}
+
+.deal-item .thumb img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.deal-item .badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: red;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.deal-item h4 {
+  margin: 10px 0 5px 0;
+  font-size: 16px;
+}
+
+.deal-item .price {
+  margin-bottom: 10px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  margin-right: 5px;
+  color: #888;
+}
+
+.new-price {
+  font-weight: bold;
+  color: #e60023;
+}
+
+.deal-item button {
+  background-color: #e60023;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deal-item button:hover {
+  background-color: #c5001f;
+}
+.deals-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden; /* scroll çubuğu gizlendi */
+  white-space: nowrap;
+}
+
+.deal-item {
+  flex: 0 0 auto;
+  width: 180px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}

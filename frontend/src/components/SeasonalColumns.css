@@ -1,0 +1,178 @@
+:root {
+  --gap: 12px;
+  --card-h: 120px;           /* dikey kart yüksekliği */
+  --collapsed-rows: 3;       /* ilk etapta görünen ürün sayısı */
+  --collapsed-h: calc(var(--collapsed-rows) * var(--card-h) + (var(--collapsed-rows) - 1) * var(--gap));
+}
+
+/* 4 sütun grid */
+.seasonal-container {
+  max-width: 1100px;
+  margin: 32px auto 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 0 20px;
+}
+
+/* Sütun kutusu */
+.season-column {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  overflow: hidden; /* alt fade için */
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.season-column:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* Başlık */
+.season-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.season-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.badge {
+  font-size: 12px;
+  background: #f2f4f7;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+/* Ürün listesi - dikey yığılma */
+.season-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  max-height: var(--collapsed-h);     /* ilk etapta 3 ürün görünür */
+  overflow: hidden;
+  transition: max-height .3s ease;
+  position: relative;
+}
+
+/* Hover ile aç */
+.season-column.expanded .season-items {
+  max-height: 9999px; /* effectively open */
+}
+
+/* Alta doğru "daha var" ipucu (fade) */
+.season-column:not(.expanded) .season-items::after {
+  content: "";
+  position: absolute;
+  height: 48px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+}
+
+/* Kart */
+.season-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  align-items: center;
+  height: var(--card-h);
+  padding: 8px;
+  border: 1px solid #eef0f4;
+  border-radius: 12px;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+.season-item:hover {
+  background: #f9fbff;
+  border-color: #e3e8f5;
+  transform: translateX(1px);
+}
+
+/* Görsel */
+.thumb {
+  width: 72px;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Metinler */
+.meta {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  gap: 6px;
+}
+.name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  max-height: 2.4em;
+  overflow: hidden;
+}
+.price {
+  font-weight: 700;
+}
+.add {
+  justify-self: start;
+  padding: 6px 10px;
+  border: none;
+  background-color: #051960;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.add:hover {
+  background-color: #104385;
+}
+
+/* Footer ipucu */
+.season-footer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Mevsim temaları: sol bordür veya üst şerit */
+.season-spring { border-left: 4px solid #22c55e; }
+.season-summer { border-left: 4px solid #f59e0b; }
+.season-autumn { border-left: 4px solid #ea580c; }
+.season-winter { border-left: 4px solid #3b82f6; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .seasonal-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .seasonal-container {
+    grid-template-columns: 1fr;
+  }
+}
+.season-banner {
+  width: 100%;
+  height: 80px; /* istersen artırabilirsin */
+  object-fit: contain; /* tüm resim görünür */
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background-color: #f5f5f5; /* opsiyonel: boş alanları doldurur */
+}
+
