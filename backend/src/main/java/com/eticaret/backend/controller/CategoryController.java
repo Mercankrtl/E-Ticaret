@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/CategoryController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.Category;
@@ -16,29 +17,22 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    // Tüm kategorileri getir
     @GetMapping
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
-    }
+    public List<Category> getAllCategories() { return categoryService.getAllCategories(); }
 
-    // ID ile kategori getir
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Integer id) {
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
         Optional<Category> category = categoryService.getCategoryById(id);
-        return category.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return category.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Yeni kategori oluştur
     @PostMapping
     public Category createCategory(@RequestBody Category category) {
         return categoryService.createCategory(category);
     }
 
-    // Kategori güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Integer id, @RequestBody Category categoryDetails) {
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category categoryDetails) {
         Optional<Category> existingCategory = categoryService.getCategoryById(id);
         if (existingCategory.isPresent()) {
             Category category = existingCategory.get();
@@ -51,9 +45,8 @@ public class CategoryController {
         }
     }
 
-    // Kategori sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }

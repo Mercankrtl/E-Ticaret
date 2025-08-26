@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/repository/ProductLogRepository.java
 package com.eticaret.backend.repository;
 
 import com.eticaret.backend.model.ProductLog;
@@ -8,7 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ProductLogRepository extends JpaRepository<ProductLog, Long> {
-
-    // User entity’sindeki userId’ye göre logları getir
     List<ProductLog> findByUserUserId(Long userId);
 }

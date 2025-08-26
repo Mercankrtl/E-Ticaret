@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/UserController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.User;
@@ -24,7 +25,7 @@ public class UserController {
 
     // ID ile kullanıcı getir
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -38,17 +39,19 @@ public class UserController {
 
     // Kullanıcı güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User userDetails) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         Optional<User> existingUser = userService.getUserById(id);
         if (existingUser.isPresent()) {
             User user = existingUser.get();
             user.setUsername(userDetails.getUsername());
             user.setEmail(userDetails.getEmail());
-            user.setPasswordHash(userDetails.getPasswordHash());
+            user.setPasswordHash(userDetails.getPasswordHash()); // dikkat: password yerine passwordHash
             user.setFirstName(userDetails.getFirstName());
             user.setLastName(userDetails.getLastName());
             user.setGender(userDetails.getGender());
             user.setDateOfBirth(userDetails.getDateOfBirth());
+            user.setLastLogin(userDetails.getLastLogin());
+
             User updatedUser = userService.updateUser(user);
             return ResponseEntity.ok(updatedUser);
         } else {
@@ -58,8 +61,24 @@ public class UserController {
 
     // Kullanıcı sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // E-mail ile kullanıcı getir
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        Optional<User> user = userService.getUserByEmail(email);
+        return user.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Username ile kullanıcı getir
+    @GetMapping("/username/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        Optional<User> user = userService.getUserByUsername(username);
+        return user.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/ProductLogController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.ProductLog;

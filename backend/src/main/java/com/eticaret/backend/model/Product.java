@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/model/Product.java
 package com.eticaret.backend.model;
 
 import jakarta.persistence.*;
@@ -17,12 +18,10 @@ public class Product {
     private int stock;
     private String description;
 
-    // Category ile ilişki
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    // Gender ile ilişki
     @ManyToOne
     @JoinColumn(name = "gender_id")
     private Gender gender;

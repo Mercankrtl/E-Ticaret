@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/GenderController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.Gender;
@@ -16,29 +17,20 @@ public class GenderController {
     @Autowired
     private GenderService genderService;
 
-    // Tüm cinsiyetleri getir
     @GetMapping
-    public List<Gender> getAllGenders() {
-        return genderService.getAllGenders();
-    }
+    public List<Gender> getAllGenders() { return genderService.getAllGenders(); }
 
-    // ID ile cinsiyet getir
     @GetMapping("/{id}")
-    public ResponseEntity<Gender> getGenderById(@PathVariable Integer id) {
+    public ResponseEntity<Gender> getGenderById(@PathVariable Long id) {
         Optional<Gender> gender = genderService.getGenderById(id);
-        return gender.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return gender.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Yeni cinsiyet oluştur
     @PostMapping
-    public Gender createGender(@RequestBody Gender gender) {
-        return genderService.createGender(gender);
-    }
+    public Gender createGender(@RequestBody Gender gender) { return genderService.createGender(gender); }
 
-    // Cinsiyet güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<Gender> updateGender(@PathVariable Integer id, @RequestBody Gender genderDetails) {
+    public ResponseEntity<Gender> updateGender(@PathVariable Long id, @RequestBody Gender genderDetails) {
         Optional<Gender> existingGender = genderService.getGenderById(id);
         if (existingGender.isPresent()) {
             Gender gender = existingGender.get();
@@ -50,9 +42,8 @@ public class GenderController {
         }
     }
 
-    // Cinsiyet sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGender(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteGender(@PathVariable Long id) {
         genderService.deleteGender(id);
         return ResponseEntity.noContent().build();
     }

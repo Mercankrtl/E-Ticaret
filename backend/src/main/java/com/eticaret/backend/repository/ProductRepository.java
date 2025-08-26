@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/repository/ProductRepository.java
 package com.eticaret.backend.repository;
 
 import com.eticaret.backend.model.Product;

@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/model/ProductImage.java
 package com.eticaret.backend.model;
 
 import jakarta.persistence.*;
@@ -20,7 +21,6 @@ public class ProductImage {
     @Column(nullable = false)
     private Boolean isPrimary = false;
 
-    // Constructors
     public ProductImage() {}
 
     public ProductImage(Product product, String imageUrl, Boolean isPrimary) {
@@ -29,36 +29,12 @@ public class ProductImage {
         this.isPrimary = isPrimary;
     }
 
-    // Getters & Setters
-    public Long getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Boolean getIsPrimary() {
-        return isPrimary;
-    }
-
-    public void setIsPrimary(Boolean isPrimary) {
-        this.isPrimary = isPrimary;
-    }
+    public Long getImageId() { return imageId; }
+    public void setImageId(Long imageId) { this.imageId = imageId; }
+    public Product getProduct() { return product; }
+    public void setProduct(Product product) { this.product = product; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public Boolean getIsPrimary() { return isPrimary; }
+    public void setIsPrimary(Boolean isPrimary) { this.isPrimary = isPrimary; }
 }

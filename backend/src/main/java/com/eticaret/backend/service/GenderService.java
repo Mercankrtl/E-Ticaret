@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/service/GenderService.java
 package com.eticaret.backend.service;
 
 import com.eticaret.backend.model.Gender;
@@ -14,33 +15,10 @@ public class GenderService {
     @Autowired
     private GenderRepository genderRepository;
 
-    // Tüm cinsiyetleri getir
-    public List<Gender> getAllGenders() {
-        return genderRepository.findAll();
-    }
-
-    // ID'ye göre cinsiyet getir
-    public Optional<Gender> getGenderById(Integer id) {
-        return genderRepository.findById(id);
-    }
-
-    // Yeni cinsiyet ekle
-    public Gender createGender(Gender gender) {
-        return genderRepository.save(gender);
-    }
-
-    // Cinsiyet güncelle
-    public Gender updateGender(Gender gender) {
-        return genderRepository.save(gender);
-    }
-
-    // Cinsiyet sil
-    public void deleteGender(Integer id) {
-        genderRepository.deleteById(id);
-    }
-
-    // İsim ile arama (opsiyonel)
-    public Optional<Gender> getGenderByName(String name) {
-        return genderRepository.findByName(name);
-    }
+    public List<Gender> getAllGenders() { return genderRepository.findAll(); }
+    public Optional<Gender> getGenderById(Long id) { return genderRepository.findById(id); }
+    public Gender createGender(Gender gender) { return genderRepository.save(gender); }
+    public Gender updateGender(Gender gender) { return genderRepository.save(gender); }
+    public void deleteGender(Long id) { genderRepository.deleteById(id); }
+    public Optional<Gender> getGenderByName(String name) { return genderRepository.findByName(name); }
 }

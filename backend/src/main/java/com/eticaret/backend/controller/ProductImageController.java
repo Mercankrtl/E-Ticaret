@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/ProductImageController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.ProductImage;
@@ -16,29 +17,22 @@ public class ProductImageController {
     @Autowired
     private ProductImageService productImageService;
 
-    // Tüm ürün görsellerini getir
     @GetMapping
-    public List<ProductImage> getAllImages() {
-        return productImageService.getAllImages();
-    }
+    public List<ProductImage> getAllImages() { return productImageService.getAllImages(); }
 
-    // ID ile ürün görseli getir
     @GetMapping("/{id}")
-    public ResponseEntity<ProductImage> getImageById(@PathVariable Integer id) {
+    public ResponseEntity<ProductImage> getImageById(@PathVariable Long id) {
         Optional<ProductImage> productImage = productImageService.getImageById(id);
-        return productImage.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return productImage.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Yeni ürün görseli oluştur
     @PostMapping
     public ProductImage createImage(@RequestBody ProductImage productImage) {
         return productImageService.createImage(productImage);
     }
 
-    // Ürün görseli güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<ProductImage> updateImage(@PathVariable Integer id, @RequestBody ProductImage imageDetails) {
+    public ResponseEntity<ProductImage> updateImage(@PathVariable Long id, @RequestBody ProductImage imageDetails) {
         Optional<ProductImage> existingImage = productImageService.getImageById(id);
         if (existingImage.isPresent()) {
             ProductImage image = existingImage.get();
@@ -52,9 +46,8 @@ public class ProductImageController {
         }
     }
 
-    // Ürün görseli sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteImage(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteImage(@PathVariable Long id) {
         productImageService.deleteImage(id);
         return ResponseEntity.noContent().build();
     }

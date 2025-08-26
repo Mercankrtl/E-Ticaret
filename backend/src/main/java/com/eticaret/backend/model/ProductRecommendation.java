@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/model/ProductRecommendation.java
 package com.eticaret.backend.model;
 
 import jakarta.persistence.*;
@@ -22,7 +23,6 @@ public class ProductRecommendation {
     @Column(precision = 5, scale = 2)
     private BigDecimal score = BigDecimal.ZERO;
 
-    // Constructors
     public ProductRecommendation() {}
 
     public ProductRecommendation(Product product, Product recommendedProduct, BigDecimal score) {
@@ -31,36 +31,12 @@ public class ProductRecommendation {
         this.score = score;
     }
 
-    // Getters & Setters
-    public Long getRecommendationId() {
-        return recommendationId;
-    }
-
-    public void setRecommendationId(Long recommendationId) {
-        this.recommendationId = recommendationId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Product getRecommendedProduct() {
-        return recommendedProduct;
-    }
-
-    public void setRecommendedProduct(Product recommendedProduct) {
-        this.recommendedProduct = recommendedProduct;
-    }
-
-    public BigDecimal getScore() {
-        return score;
-    }
-
-    public void setScore(BigDecimal score) {
-        this.score = score;
-    }
+    public Long getRecommendationId() { return recommendationId; }
+    public void setRecommendationId(Long recommendationId) { this.recommendationId = recommendationId; }
+    public Product getProduct() { return product; }
+    public void setProduct(Product product) { this.product = product; }
+    public Product getRecommendedProduct() { return recommendedProduct; }
+    public void setRecommendedProduct(Product recommendedProduct) { this.recommendedProduct = recommendedProduct; }
+    public BigDecimal getScore() { return score; }
+    public void setScore(BigDecimal score) { this.score = score; }
 }

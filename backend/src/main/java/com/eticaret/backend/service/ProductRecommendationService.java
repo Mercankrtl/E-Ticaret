@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/service/ProductRecommendationService.java
 package com.eticaret.backend.service;
 
 import com.eticaret.backend.model.ProductRecommendation;
@@ -14,33 +15,10 @@ public class ProductRecommendationService {
     @Autowired
     private ProductRecommendationRepository recommendationRepository;
 
-    // Tüm önerileri getir
-    public List<ProductRecommendation> getAllRecommendations() {
-        return recommendationRepository.findAll();
-    }
-
-    // ID'ye göre öneri getir
-    public Optional<ProductRecommendation> getRecommendationById(Integer id) {
-        return recommendationRepository.findById(id);
-    }
-
-    // Yeni öneri oluştur
-    public ProductRecommendation createRecommendation(ProductRecommendation recommendation) {
-        return recommendationRepository.save(recommendation);
-    }
-
-    // Öneriyi güncelle
-    public ProductRecommendation updateRecommendation(ProductRecommendation recommendation) {
-        return recommendationRepository.save(recommendation);
-    }
-
-    // Öneriyi sil
-    public void deleteRecommendation(Integer id) {
-        recommendationRepository.deleteById(id);
-    }
-
-    // Belirli bir ürünün önerilerini getir
-    public List<ProductRecommendation> getRecommendationsByProductId(Integer productId) {
-        return recommendationRepository.findByProductId(productId);
-    }
+    public List<ProductRecommendation> getAllRecommendations() { return recommendationRepository.findAll(); }
+    public Optional<ProductRecommendation> getRecommendationById(Long id) { return recommendationRepository.findById(id); }
+    public ProductRecommendation createRecommendation(ProductRecommendation recommendation) { return recommendationRepository.save(recommendation); }
+    public ProductRecommendation updateRecommendation(ProductRecommendation recommendation) { return recommendationRepository.save(recommendation); }
+    public void deleteRecommendation(Long id) { recommendationRepository.deleteById(id); }
+    public List<ProductRecommendation> getRecommendationsByProductId(Long productId) { return recommendationRepository.findByProduct_Id(productId); }
 }

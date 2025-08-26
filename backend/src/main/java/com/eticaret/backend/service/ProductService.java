@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/service/ProductService.java
 package com.eticaret.backend.service;
 
 import com.eticaret.backend.model.Product;
@@ -13,11 +14,6 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
+    public List<Product> getAllProducts() { return productRepository.findAll(); }
+    public Product saveProduct(Product product) { return productRepository.save(product); }
 }

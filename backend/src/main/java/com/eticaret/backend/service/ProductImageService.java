@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/service/ProductImageService.java
 package com.eticaret.backend.service;
 
 import com.eticaret.backend.model.ProductImage;
@@ -14,33 +15,10 @@ public class ProductImageService {
     @Autowired
     private ProductImageRepository productImageRepository;
 
-    // Tüm ürün görsellerini getir
-    public List<ProductImage> getAllImages() {
-        return productImageRepository.findAll();
-    }
-
-    // ID'ye göre görsel getir
-    public Optional<ProductImage> getImageById(Integer id) {
-        return productImageRepository.findById(id);
-    }
-
-    // Yeni ürün görseli ekle
-    public ProductImage createImage(ProductImage image) {
-        return productImageRepository.save(image);
-    }
-
-    // Ürün görselini güncelle
-    public ProductImage updateImage(ProductImage image) {
-        return productImageRepository.save(image);
-    }
-
-    // Ürün görselini sil
-    public void deleteImage(Integer id) {
-        productImageRepository.deleteById(id);
-    }
-
-    // Belirli bir ürüne ait tüm görselleri getir
-    public List<ProductImage> getImagesByProductId(Integer productId) {
-        return productImageRepository.findByProductId(productId);
-    }
+    public List<ProductImage> getAllImages() { return productImageRepository.findAll(); }
+    public Optional<ProductImage> getImageById(Long id) { return productImageRepository.findById(id); }
+    public ProductImage createImage(ProductImage image) { return productImageRepository.save(image); }
+    public ProductImage updateImage(ProductImage image) { return productImageRepository.save(image); }
+    public void deleteImage(Long id) { productImageRepository.deleteById(id); }
+    public List<ProductImage> getImagesByProductId(Long productId) { return productImageRepository.findByProduct_Id(productId); }
 }

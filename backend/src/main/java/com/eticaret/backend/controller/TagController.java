@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/TagController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.Tag;
@@ -16,37 +17,26 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    // Tüm tagleri getir
     @GetMapping
-    public List<Tag> getAllTags() {
-        return tagService.getAllTags();
-    }
+    public List<Tag> getAllTags() { return tagService.getAllTags(); }
 
-    // ID ile tag getir
     @GetMapping("/{id}")
-    public ResponseEntity<Tag> getTagById(@PathVariable Integer id) {
+    public ResponseEntity<Tag> getTagById(@PathVariable Long id) {
         Optional<Tag> tag = tagService.getTagById(id);
-        return tag.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return tag.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // İsme göre tag getir
     @GetMapping("/name/{name}")
     public ResponseEntity<Tag> getTagByName(@PathVariable String name) {
         Optional<Tag> tag = tagService.getTagByName(name);
-        return tag.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return tag.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Yeni tag oluştur
     @PostMapping
-    public Tag createTag(@RequestBody Tag tag) {
-        return tagService.createTag(tag);
-    }
+    public Tag createTag(@RequestBody Tag tag) { return tagService.createTag(tag); }
 
-    // Tag güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<Tag> updateTag(@PathVariable Integer id, @RequestBody Tag tagDetails) {
+    public ResponseEntity<Tag> updateTag(@PathVariable Long id, @RequestBody Tag tagDetails) {
         Optional<Tag> existingTag = tagService.getTagById(id);
         if (existingTag.isPresent()) {
             Tag tag = existingTag.get();
@@ -58,9 +48,8 @@ public class TagController {
         }
     }
 
-    // Tag sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTag(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
         tagService.deleteTag(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/service/OrderService.java
 package com.eticaret.backend.service;
 
 import com.eticaret.backend.model.Order;
@@ -14,33 +15,10 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    // Tüm siparişleri getir
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
-    }
-
-    // ID'ye göre sipariş getir
-    public Optional<Order> getOrderById(Integer id) {
-        return orderRepository.findById(id);
-    }
-
-    // Yeni sipariş ekle
-    public Order createOrder(Order order) {
-        return orderRepository.save(order);
-    }
-
-    // Sipariş güncelle
-    public Order updateOrder(Order order) {
-        return orderRepository.save(order);
-    }
-
-    // Sipariş sil
-    public void deleteOrder(Integer id) {
-        orderRepository.deleteById(id);
-    }
-
-    // Belirli bir kullanıcıya ait siparişleri getir
-    public List<Order> getOrdersByUserId(Long userId) {
-        return orderRepository.findByUserUserId(userId);
-    }
+    public List<Order> getAllOrders() { return orderRepository.findAll(); }
+    public Optional<Order> getOrderById(Long id) { return orderRepository.findById(id); }
+    public Order createOrder(Order order) { return orderRepository.save(order); }
+    public Order updateOrder(Order order) { return orderRepository.save(order); }
+    public void deleteOrder(Long id) { orderRepository.deleteById(id); }
+    public List<Order> getOrdersByUserId(Long userId) { return orderRepository.findByUserUserId(userId); }
 }

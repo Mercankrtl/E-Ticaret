@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/ProductController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.Product;
@@ -15,12 +16,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-    }
+    public List<Product> getAllProducts() { return productService.getAllProducts(); }
 
     @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
-    }
+    public Product saveProduct(@RequestBody Product product) { return productService.saveProduct(product); }
 }

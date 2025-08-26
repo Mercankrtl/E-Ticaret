@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/OrderController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.Order;
@@ -16,29 +17,20 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    // Tüm siparişleri getir
     @GetMapping
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
-    }
+    public List<Order> getAllOrders() { return orderService.getAllOrders(); }
 
-    // ID ile sipariş getir
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Optional<Order> order = orderService.getOrderById(id);
-        return order.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Yeni sipariş oluştur
     @PostMapping
-    public Order createOrder(@RequestBody Order order) {
-        return orderService.createOrder(order);
-    }
+    public Order createOrder(@RequestBody Order order) { return orderService.createOrder(order); }
 
-    // Sipariş güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order orderDetails) {
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order orderDetails) {
         Optional<Order> existingOrder = orderService.getOrderById(id);
         if (existingOrder.isPresent()) {
             Order order = existingOrder.get();
@@ -51,9 +43,8 @@ public class OrderController {
         }
     }
 
-    // Sipariş sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }

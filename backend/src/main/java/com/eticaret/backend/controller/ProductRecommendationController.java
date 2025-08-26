@@ -1,3 +1,4 @@
+// src/main/java/com/eticaret/backend/controller/ProductRecommendationController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.ProductRecommendation;
@@ -16,29 +17,24 @@ public class ProductRecommendationController {
     @Autowired
     private ProductRecommendationService productRecommendationService;
 
-    // Tüm önerileri getir
     @GetMapping
     public List<ProductRecommendation> getAllRecommendations() {
         return productRecommendationService.getAllRecommendations();
     }
 
-    // ID ile öneri getir
     @GetMapping("/{id}")
-    public ResponseEntity<ProductRecommendation> getRecommendationById(@PathVariable Integer id) {
+    public ResponseEntity<ProductRecommendation> getRecommendationById(@PathVariable Long id) {
         Optional<ProductRecommendation> recommendation = productRecommendationService.getRecommendationById(id);
-        return recommendation.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return recommendation.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Yeni öneri oluştur
     @PostMapping
     public ProductRecommendation createRecommendation(@RequestBody ProductRecommendation recommendation) {
         return productRecommendationService.createRecommendation(recommendation);
     }
 
-    // Öneri güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<ProductRecommendation> updateRecommendation(@PathVariable Integer id, @RequestBody ProductRecommendation recommendationDetails) {
+    public ResponseEntity<ProductRecommendation> updateRecommendation(@PathVariable Long id, @RequestBody ProductRecommendation recommendationDetails) {
         Optional<ProductRecommendation> existingRecommendation = productRecommendationService.getRecommendationById(id);
         if (existingRecommendation.isPresent()) {
             ProductRecommendation recommendation = existingRecommendation.get();
@@ -52,9 +48,8 @@ public class ProductRecommendationController {
         }
     }
 
-    // Öneri sil
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRecommendation(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteRecommendation(@PathVariable Long id) {
         productRecommendationService.deleteRecommendation(id);
         return ResponseEntity.noContent().build();
     }
