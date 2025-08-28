@@ -1,9 +1,16 @@
-import React, { useRef } from "react";
-import products from "../data/products";
+import React, { useRef, useEffect, useState } from "react";
+import { fetchProducts } from "../services/api"; // api.js'de tanımlayacağız
 import "./ProductCarousel.css";
 
 function ProductCarousel() {
   const carouselRef = useRef(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts()
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Ürünler alınamadı:", err));
+  }, []);
 
   const scroll = (direction) => {
     const container = carouselRef.current;
@@ -31,14 +38,18 @@ function ProductCarousel() {
 
       {/* Ürün listesi */}
       <div className="product-carousel" ref={carouselRef}>
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.name} />
-            <h4>{product.name}</h4>
-            <p>{product.price}₺</p>
-            <button>Sepete Ekle</button>
-          </div>
-        ))}
+        {products.length === 0 ? (
+          <p>Ürünler yükleniyor...</p>
+        ) : (
+          products.map((product) => (
+            <div key={product.id} className="product-card">
+              <img src={product.imageUrl || product.image} alt={product.name} />
+              <h4>{product.name}</h4>
+              <p>{product.price}₺</p>
+              <button>Sepete Ekle</button>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Sağ ok */}

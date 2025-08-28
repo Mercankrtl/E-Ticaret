@@ -1,30 +1,31 @@
-// src/main/java/com/eticaret/backend/model/Gender.java
 package com.eticaret.backend.model;
 
 import jakarta.persistence.*;
-import java.util.List;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
+import java.util.List;
+import java.util.ArrayList;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "genders")
 public class Gender {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long genderId;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "gender", cascade = CascadeType.ALL)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
-    public Gender() {}
-    public Gender(String name) { this.name = name; }
-
-    public Long getGenderId() { return genderId; }
-    public void setGenderId(Long genderId) { this.genderId = genderId; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public List<Product> getProducts() { return products; }
-    public void setProducts(List<Product> products) { this.products = products; }
+    public Gender(String name) {
+        this.name = name;
+    }
 }

@@ -1,7 +1,6 @@
-// ./components/SeasonalColumns.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SeasonalColumns.css";
-import seasonalProducts from "../data/seasonalProducts";
+import { fetchSeasonalProducts } from "../services/api"; // api.js'de tanımlayacağız
 
 const SEASONS = [
   { key: "spring", label: "İlkbahar" },
@@ -12,6 +11,14 @@ const SEASONS = [
 
 export default function SeasonalColumns() {
   const [expanded, setExpanded] = useState(null);
+  const [seasonalProducts, setSeasonalProducts] = useState({});
+
+  // Backend'den sezonluk ürünleri çek
+  useEffect(() => {
+    fetchSeasonalProducts()
+      .then((data) => setSeasonalProducts(data))
+      .catch((err) => console.error("Sezonluk ürünler alınamadı:", err));
+  }, []);
 
   return (
     <section className="seasonal-container">
@@ -38,7 +45,7 @@ export default function SeasonalColumns() {
               {products.map((p) => (
                 <article className="season-item" key={p.id}>
                   <div className="thumb">
-                    <img src={p.image} alt={p.name} loading="lazy" />
+                    <img src={p.imageUrl || p.image} alt={p.name} loading="lazy" />
                   </div>
                   <div className="meta">
                     <h4 className="name">{p.name}</h4>
