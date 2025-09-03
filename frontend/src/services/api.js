@@ -18,14 +18,14 @@ export async function fetchProductsByCategory(categorySlug) {
   return response.json();
 }
 
-// Sezonluk ürünleri getir
-export async function fetchSeasonalProducts() {
-  const response = await fetch(`${API_BASE_URL}/seasonal-products`);
+export async function fetchProductsBySeason(seasonName) {
+  const response = await fetch(`${API_BASE_URL}/seasons/${seasonName}/products`);
   if (!response.ok) {
-    throw new Error("Sezonluk ürünler alınamadı");
+    throw new Error(`${seasonName} ürünleri alınamadı`);
   }
   return response.json();
 }
+
 
 // Günün indirimlerini getir
 export async function fetchDailyDeals() {
