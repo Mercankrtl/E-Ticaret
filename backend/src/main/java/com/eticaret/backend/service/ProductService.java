@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +48,29 @@ public class ProductService {
         }
 
         return seasonalMap;
+    }
+
+    // Slug -> Kategori adı eşlemesi (aksanlı karakterler için)
+    private static final Map<String, String> SLUG_TO_CATEGORY_NAME = Map.ofEntries(
+            Map.entry("kadin", "Kadın"),
+            Map.entry("erkek", "Erkek"),
+            Map.entry("supermarket", "Süpermarket"),
+            Map.entry("elektronik", "Elektronik"),
+            Map.entry("kiyafet", "Kıyafet"),
+            Map.entry("cok-satanlar", "Çok Satanlar"),
+            Map.entry("aksesuar", "Aksesuar"),
+            Map.entry("yeni-gelenler", "Yeni Gelenler")
+    );
+
+    // Kategori adına göre ürünleri getir (slug veya ad)
+    public List<Product> getProductsByCategoryName(String categoryNameOrSlug) {
+        if (categoryNameOrSlug == null || categoryNameOrSlug.isBlank()) {
+            return Collections.emptyList();
+        }
+
+        String slug = categoryNameOrSlug.toLowerCase(Locale.ROOT).trim();
+        String mappedName = SLUG_TO_CATEGORY_NAME.get(slug);
+        String searchName = (mappedName != null) ? mappedName : slug.replace('-', ' ');
+        return productRepository.findByCategoryNameIgnoreCase(searchName);
     }
 }

@@ -81,4 +81,22 @@ public class ProductController {
     public Product saveProduct(@RequestBody Product product) {
         return productService.saveProduct(product);
     }
+
+    // Kategoriye gf6re crcnleri getir
+    @GetMapping("/category/{slug}")
+    public List<ProductDTO> getProductsByCategory(@PathVariable("slug") String slug) {
+        List<Product> products = productService.getProductsByCategoryName(slug);
+
+        return products.stream().map(p -> {
+            String primaryImageUrl = Optional.ofNullable(productImageService.getImagesByProductId(p.getId()))
+                    .orElse(Collections.emptyList())
+                    .stream()
+                    .filter(pi -> Boolean.TRUE.equals(pi.getIsPrimary()))
+                    .map(ProductImage::getImageUrl)
+                    .findFirst()
+                    .orElse(null);
+
+            return toDto(p, primaryImageUrl);
+        }).collect(java.util.stream.Collectors.toList());
+    }
 }
