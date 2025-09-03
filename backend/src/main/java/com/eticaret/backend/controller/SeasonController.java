@@ -2,9 +2,10 @@ package com.eticaret.backend.controller;
 
 import com.eticaret.backend.dto.ProductDTO;
 import com.eticaret.backend.model.Product;
+import com.eticaret.backend.model.Season;
 import com.eticaret.backend.model.ProductImage;
 import com.eticaret.backend.service.ProductImageService;
-import com.eticaret.backend.service.ProductService;
+import com.eticaret.backend.service.SeasonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,18 +13,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/seasons")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-public class ProductController {
+public class SeasonController {
 
-    private final ProductService productService;
+    private final SeasonService seasonService;
     private final ProductImageService productImageService;
 
-    // Tüm ürünleri DTO ile getir
+    // Tüm mevsimleri getir
     @GetMapping
-    public List<ProductDTO> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+    public List<Season> getAllSeasons() {
+        return seasonService.getAllSeasons();
+    }
+
+    // Sezon bazlı ürünleri DTO ile getir
+    @GetMapping("/{seasonName}/products")
+    public List<ProductDTO> getProductsBySeason(@PathVariable String seasonName) {
+        List<Product> products = seasonService.getProductsBySeason(seasonName);
 
         return products.stream().map(p -> {
             Optional<ProductImage> primaryImage = Optional.ofNullable(
@@ -35,26 +42,27 @@ public class ProductController {
 
             String imageUrl = primaryImage.map(ProductImage::getImageUrl).orElse(p.getImage());
             Long seasonId = p.getSeason() != null ? p.getSeason().getId() : null;
-            String seasonName = p.getSeason() != null ? p.getSeason().getName() : null;
+            String seasonNameVal = p.getSeason() != null ? p.getSeason().getName() : null;
 
             return new ProductDTO(
                     p.getId(),
                     p.getName(),
                     p.getDescription(),
-                    p.getPrice().doubleValue(), // BigDecimal -> double
+                    p.getPrice().doubleValue(),
                     p.getStock(),
                     p.isBestSeller(),
                     p.isNewProduct(),
                     p.getCreatedAt() != null ? p.getCreatedAt().toString() : null,
                     imageUrl,
                     seasonId,
-                    seasonName
+                    seasonNameVal
             );
         }).collect(Collectors.toList());
     }
 
-    @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    // Belirli ID’ye göre tek bir mevsimi çek
+    @GetMapping("/{id}")
+    public Season getSeasonById(@PathVariable Long id) {
+        return seasonService.getSeasonById(id).orElse(null);
     }
 }

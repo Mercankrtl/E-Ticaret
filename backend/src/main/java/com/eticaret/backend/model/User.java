@@ -1,6 +1,7 @@
 // src/main/java/com/eticaret/backend/model/User.java
 package com.eticaret.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String passwordHash;
 
     private String firstName;

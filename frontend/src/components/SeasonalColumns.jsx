@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SeasonalColumns.css";
-import { fetchSeasonalProducts } from "../services/api"; // api.js'de tanımlayacağız
+import { fetchSeasonalProducts } from "../services/api"; // api.js'de tanımlanacak
 
 const SEASONS = [
   { key: "spring", label: "İlkbahar" },
@@ -11,12 +11,17 @@ const SEASONS = [
 
 export default function SeasonalColumns() {
   const [expanded, setExpanded] = useState(null);
-  const [seasonalProducts, setSeasonalProducts] = useState({});
+  const [seasonalProducts, setSeasonalProducts] = useState({
+    spring: [],
+    summer: [],
+    autumn: [],
+    winter: [],
+  });
 
   // Backend'den sezonluk ürünleri çek
   useEffect(() => {
     fetchSeasonalProducts()
-      .then((data) => setSeasonalProducts(data))
+      .then((data) => setSeasonalProducts(data)) // Map direkt geliyor
       .catch((err) => console.error("Sezonluk ürünler alınamadı:", err));
   }, []);
 
@@ -24,7 +29,6 @@ export default function SeasonalColumns() {
     <section className="seasonal-container">
       {SEASONS.map((s) => {
         const products = seasonalProducts[s.key] || [];
-
         return (
           <div
             key={s.key}
@@ -34,18 +38,19 @@ export default function SeasonalColumns() {
             onMouseEnter={() => setExpanded(s.key)}
             onMouseLeave={() => setExpanded(null)}
           >
-            {/* Banner / Başlık */}
             <header className="season-header">
               <h3>{s.label}</h3>
               <span className="badge">{products.length} ürün</span>
             </header>
-
-            {/* Hover olduğunda gözükecek ürünler */}
             <div className="season-items">
               {products.map((p) => (
                 <article className="season-item" key={p.id}>
                   <div className="thumb">
-                    <img src={p.imageUrl || p.image} alt={p.name} loading="lazy" />
+                    <img
+                      src={p.imageUrl || p.image}
+                      alt={p.name}
+                      loading="lazy"
+                    />
                   </div>
                   <div className="meta">
                     <h4 className="name">{p.name}</h4>

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
-
+/*
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -112,3 +112,4 @@ public class DataLoader implements CommandLineRunner {
         public void setImage(String image) { this.image = image; }
     }
 }
+*/

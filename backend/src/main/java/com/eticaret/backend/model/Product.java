@@ -22,11 +22,7 @@ public class Product {
     private BigDecimal price;
     private int stock;
 
-
-    private String image; // ✅ eklendi
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
-
+    private String image; // Görsel yolu
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,15 +39,24 @@ public class Product {
     @Column(nullable = false)
     private boolean newProduct = false;
 
+    @Column(nullable = false)
+    private boolean dailyDeal = false; // Günlük indirimde mi?
 
+    @Column(nullable = false)
+    private BigDecimal discount = BigDecimal.ZERO; // İndirim tutarı
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category; // Eğer tek kategori olacaksa bunu kullanabilirsin
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "gender_id")
     private Gender gender;
+
+    // Yeni: sezon ilişkisi
+    @ManyToOne
+    @JoinColumn(name = "season_id")
+    private Season season;
 
     @ManyToMany
     @JoinTable(

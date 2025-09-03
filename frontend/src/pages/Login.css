@@ -1,0 +1,141 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  background: linear-gradient(135deg, #fdfdf7, #e8ecf5);
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #051960;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  margin-top: 5px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #104385;
+  box-shadow: 0 0 5px rgba(16, 67, 133, 0.3);
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-left: 35px; /* ikon için boşluk */
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #555;
+}
+
+.login-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #051960;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.login-submit:hover {
+  background-color: #104385;
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.signup-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup-text a {
+  color: #1f3279;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- Yeni Eklenenler ---------------- */
+/* .form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.form-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: #333;
+}
+
+.form-options input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: #1f3279;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+} */

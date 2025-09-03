@@ -8,6 +8,8 @@ import DailyDeals from "./components/DailyDeals";
 import categories from "./data/categories";
 import CategoryPage from "./pages/CategoryPage";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
 
               {/* Sağ kısım - Kullanıcı ve Sepet */}
               <div className="header-right">
-                <button className="login-btn">Giriş Yap</button>
+                <Link to="/login" className="login-btn">Giriş Yap</Link>
                 <button className="cart-btn">Sepetim</button>
               </div>
             </div>
@@ -61,6 +63,8 @@ function App() {
             }
           />
           <Route path="/category/:slug" element={<CategoryPage />} />
+          <Route path="/login" element={<Login />} />  
+          <Route path="/signup" element={<SignupPage />} />   
         </Routes>
 
         {/* FOOTER */}

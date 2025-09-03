@@ -35,3 +35,31 @@ export async function fetchDailyDeals() {
   }
   return response.json();
 }
+
+// Kullanıcı kayıt
+export async function signupUser(data) {
+  const response = await fetch(`${API_BASE_URL}/users/signup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || "Kayıt başarısız");
+  }
+  return response.json();
+}
+
+// Kullanıcı giriş
+export async function loginUser(data) {
+  const response = await fetch(`${API_BASE_URL}/users/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || "Giriş başarısız");
+  }
+  return response.json();
+}
