@@ -1,3 +1,4 @@
+// src/App.js
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import logo from "./logo.png";
@@ -10,13 +11,43 @@ import CategoryPage from "./pages/CategoryPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignupPage from "./pages/SignupPage";
-import CartPage from "./pages/CartPage";  // ✅ Sepet sayfası
-import { CartProvider } from "./context/CartContext"; // ✅ Sepet context
+import CartPage from "./pages/CartPage";
+import { CartProvider, useCart } from "./context/CartContext";
+
+// ✅ Sepet butonunu ayrı component yaptık ve hata düzeltildi
+function CartButton() {
+    const { cartItems } = useCart(); // ✅ cartItems doğru isim
+
+    // Sepetteki toplam adet
+    const totalItems = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
+
+    return (
+        <Link to="/cart" className="cart-btn" style={{ position: "relative" }}>
+            Sepetim
+            {totalItems > 0 && (
+                <span
+                    style={{
+                        position: "absolute",
+                        top: "-8px",
+                        right: "-12px",
+                        background: "#ff69b4", // pembe badge
+                        color: "white",
+                        borderRadius: "50%",
+                        padding: "2px 6px",
+                        fontSize: "12px",
+                        fontWeight: "bold"
+                    }}
+                >
+                    {totalItems}
+                </span>
+            )}
+        </Link>
+    );
+}
 
 function App() {
     return (
         <Router>
-            {/* ✅ CartProvider ile tüm uygulamayı sarmaladık */}
             <CartProvider>
                 <div className="App">
                     {/* HEADER */}
@@ -44,9 +75,7 @@ function App() {
                                     <Link to="/login" className="login-btn">
                                         Giriş Yap
                                     </Link>
-                                    <Link to="/cart" className="cart-btn">
-                                        Sepetim
-                                    </Link>
+                                    <CartButton /> {/* ✅ Badge'li Sepet */}
                                 </div>
                             </div>
                         </div>
@@ -69,7 +98,7 @@ function App() {
                         <Route path="/category/:slug" element={<CategoryPage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<SignupPage />} />
-                        <Route path="/cart" element={<CartPage />} /> {/* ✅ Sepet rotası */}
+                        <Route path="/cart" element={<CartPage />} />
                     </Routes>
 
                     {/* FOOTER */}

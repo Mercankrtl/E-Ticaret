@@ -1,0 +1,56 @@
+/* frontend/src/components/Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-radius: 8px;
+    margin-bottom: 18px;
+}
+
+.brand {
+    text-decoration: none;
+    color: #051960;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    margin-right: 14px;
+    color: #333;
+    text-decoration: none;
+}
+
+.cart-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Kırmızı rozet (badge) */
+.cart-badge {
+    position: absolute;
+    top: -7px;
+    right: -10px;
+    background-color: #ff69b4; /* pembe renk */    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    min-width: 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    line-height: 1;
+    transform-origin: center;
+    transition: transform 120ms ease;
+}
