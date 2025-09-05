@@ -1,0 +1,14 @@
+/* OrderSuccess.css */
+.order-success-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.order-success-container h1 {
+    color: green;
+    font-size: 2rem;
+}
+
+.order-success-container p {
+    font-size: 1.2rem;
+}

@@ -1,6 +1,7 @@
 // src/main/java/com/eticaret/backend/controller/OrderController.java
 package com.eticaret.backend.controller;
 
+import com.eticaret.backend.dto.CartItemDTO;
 import com.eticaret.backend.model.Order;
 import com.eticaret.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,34 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
-    public List<Order> getAllOrders() { return orderService.getAllOrders(); }
+    public List<Order> getAllOrders() {
+        return orderService.getAllOrders();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Optional<Order> order = orderService.getOrderById(id);
-        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return order.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Order createOrder(@RequestBody Order order) { return orderService.createOrder(order); }
+    // Sepet → Sipariş oluşturma
+    @PostMapping("/create/{userId}")
+    public ResponseEntity<?> createOrder(
+            @PathVariable Long userId,
+            @RequestBody List<CartItemDTO> cartItems) {
+        try {
+            Order order = orderService.createOrder(userId, cartItems);
+            return ResponseEntity.ok(order); // içinde totalAmount da var
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order orderDetails) {
+    public ResponseEntity<Order> updateOrder(
+            @PathVariable Long id,
+            @RequestBody Order orderDetails) {
         Optional<Order> existingOrder = orderService.getOrderById(id);
         if (existingOrder.isPresent()) {
             Order order = existingOrder.get();

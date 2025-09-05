@@ -1,4 +1,3 @@
-// src/pages/CategoryPage.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
@@ -14,7 +13,6 @@ export default function CategoryPage() {
         setLoading(true);
         fetchProductsByCategory(slug)
             .then((data) => {
-                // ✅ İsim ve fiyat bazlı uniq filtreleme
                 const uniqueProducts = Array.from(
                     new Map(data.map(item => [`${item.name}-${item.price}`, item])).values()
                 );
@@ -28,13 +26,8 @@ export default function CategoryPage() {
             });
     }, [slug]);
 
-    if (loading) {
-        return <p style={{ textAlign: "center", marginTop: "50px" }}>Yükleniyor...</p>;
-    }
-
-    if (error) {
-        return <p style={{ textAlign: "center", marginTop: "50px", color: "red" }}>{error}</p>;
-    }
+    if (loading) return <p style={{ textAlign: "center", marginTop: "50px" }}>Yükleniyor...</p>;
+    if (error) return <p style={{ textAlign: "center", marginTop: "50px", color: "red" }}>{error}</p>;
 
     return (
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 20px" }}>

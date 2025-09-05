@@ -1,40 +1,63 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { fetchCart, addProductToCartAPI, removeProductFromCartAPI, clearCartAPI } from "../services/cartApi";
 
-// Sepet context oluştur
 const CartContext = createContext();
 
-// Provider
 export function CartProvider({ children }) {
+    // Test amaçlı sabit userId
+    const [userId, setUserId] = useState(1); // ✅ Burayı login sonrası dinamik yapacağız
     const [cartItems, setCartItems] = useState([]);
 
-    // Sepete ürün ekleme
-    const addToCart = (product) => {
-        setCartItems((prevItems) => {
-            const existing = prevItems.find((item) => item.id === product.id);
-            if (existing) {
-                return prevItems.map((item) =>
-                    item.id === product.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
+    useEffect(() => {
+        const loadCart = async () => {
+            if (!userId) return;
+            try {
+                const cart = await fetchCart(userId);
+                setCartItems(cart.items || []);
+            } catch (error) {
+                console.error("Sepet yüklenemedi:", error);
             }
-            return [...prevItems, { ...product, quantity: 1 }];
-        });
+        };
+        loadCart();
+    }, [userId]);
+
+    const addToCart = async (product, quantity = 1) => {
+        if (!userId) return alert("Lütfen giriş yapın!");
+        try {
+            const updatedCart = await addProductToCartAPI(userId, product.id, quantity);
+            setCartItems(updatedCart.items);
+        } catch (error) {
+            console.error("Ürün eklenemedi:", error);
+        }
     };
 
-    // Sepetten ürün silme
-    const removeFromCart = (id) => {
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    const removeFromCart = async (productId) => {
+        if (!userId) return alert("Lütfen giriş yapın!");
+        try {
+            const updatedCart = await removeProductFromCartAPI(userId, productId);
+            setCartItems(updatedCart.items);
+        } catch (error) {
+            console.error("Ürün silinemedi:", error);
+        }
+    };
+
+    const clearCart = async () => {
+        if (!userId) return;
+        try {
+            const updatedCart = await clearCartAPI(userId);
+            setCartItems(updatedCart.items);
+        } catch (error) {
+            console.error("Sepet temizlenemedi:", error);
+        }
     };
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, userId, setUserId }}>
             {children}
         </CartContext.Provider>
     );
 }
 
-// Context hook
 export function useCart() {
     return useContext(CartContext);
 }

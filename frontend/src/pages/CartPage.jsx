@@ -2,14 +2,25 @@ import React from "react";
 import "./Cart.css";
 import { FaTrash } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
+import { createOrder } from "../services/orderApi";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
-    const { cartItems, removeFromCart } = useCart();
+    const { cartItems, removeFromCart, clearCart, userId } = useCart();
+    const navigate = useNavigate();
 
-    const totalPrice = cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-    );
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const handleCheckout = async () => {
+        try {
+            const order = await createOrder(userId, cartItems);
+            clearCart();
+            navigate("/order-success", { state: { totalAmount: order.totalAmount } });
+        } catch (error) {
+            alert("🚨 Sipariş oluşturulamadı: " + error.message);
+            console.error(error);
+        }
+    };
 
     return (
         <div className="cart-page">
@@ -27,10 +38,7 @@ function CartPage() {
                                     <p>{item.price} TL</p>
                                     <p>Adet: {item.quantity}</p>
                                 </div>
-                                <button
-                                    className="remove-btn"
-                                    onClick={() => removeFromCart(item.id)}
-                                >
+                                <button className="remove-btn" onClick={() => removeFromCart(item.id)}>
                                     <FaTrash />
                                 </button>
                             </div>
@@ -39,7 +47,9 @@ function CartPage() {
                     <div className="cart-summary">
                         <h3>Toplam</h3>
                         <p>{totalPrice} TL</p>
-                        <button className="checkout-btn">Satın Al</button>
+                        <button className="checkout-btn" onClick={handleCheckout}>
+                            Satın Al
+                        </button>
                     </div>
                 </div>
             )}

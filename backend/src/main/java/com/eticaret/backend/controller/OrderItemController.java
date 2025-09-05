@@ -1,4 +1,3 @@
-// src/main/java/com/eticaret/backend/controller/OrderItemController.java
 package com.eticaret.backend.controller;
 
 import com.eticaret.backend.model.OrderItem;
@@ -17,7 +16,9 @@ public class OrderItemController {
     private OrderItemService orderItemService;
 
     @GetMapping
-    public List<OrderItem> getAllOrderItems() { return orderItemService.getAllOrderItems(); }
+    public List<OrderItem> getAllOrderItems() {
+        return orderItemService.getAllOrderItems();
+    }
 
     @GetMapping("/{id}")
     public Optional<OrderItem> getOrderItemById(@PathVariable Long id) {
@@ -31,8 +32,7 @@ public class OrderItemController {
 
     @PutMapping("/{id}")
     public OrderItem updateOrderItem(@PathVariable Long id, @RequestBody OrderItem orderItem) {
-        orderItem.setOrderItemId(id);
-        return orderItemService.updateOrderItem(orderItem);
+        return orderItemService.updateOrderItem(id, orderItem); // ✅ Güncel metod
     }
 
     @DeleteMapping("/{id}")

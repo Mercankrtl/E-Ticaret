@@ -20,7 +20,7 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    private int stock;
+    private int stock; // stok miktarı
 
     private String image; // Görsel yolu
 
@@ -53,14 +53,13 @@ public class Product {
     @JoinColumn(name = "gender_id")
     private Gender gender;
 
-    // Yeni: sezon ilişkisi
     @ManyToOne
     @JoinColumn(name = "season_id")
     private Season season;
 
     @ManyToMany
     @JoinTable(
-            name = "product_categories",
+            name = "product_categories", //ara tablo oluşturuluyor
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )

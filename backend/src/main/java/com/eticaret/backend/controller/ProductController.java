@@ -82,7 +82,7 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
-    // Kategoriye gf6re crcnleri getir
+    // Kategoriye gf6re istegi getir
     @GetMapping("/category/{slug}")
     public List<ProductDTO> getProductsByCategory(@PathVariable("slug") String slug) {
         List<Product> products = productService.getProductsByCategoryName(slug);

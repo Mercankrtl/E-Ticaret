@@ -6,8 +6,7 @@ function ProductCard({ product }) {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        console.log("Sepete ekleniyor:", product); // ✅ Log ekledik
-        addToCart(product, 1);
+        addToCart(product);
     };
 
     return (
